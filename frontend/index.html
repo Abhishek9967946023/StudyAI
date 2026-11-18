@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="StudyAI - AI Study Analyzer & Personalized Exam Generator. Intelligent document ingestion, smart notes, grounded exam generation, and weak topic revision." />
+  <title>StudyAI — AI Study Analyzer & Personalized Exam Generator</title>
+  <!-- Google Fonts: Bricolage Grotesque (headings) & Instrument Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <script>
+    // Redirect only when served by VS Code Live Server, not on production or preview servers.
+    (function () {
+      const isViteDev = location.port === '5173' || window.__vite_plugin_react_preamble_installed__;
+      const isLiveServer = ['5500', '5501'].includes(location.port);
+      if (!isViteDev && isLiveServer) {
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        function checkAndRedirect() {
+          fetch('http://127.0.0.1:5173/', { mode: 'no-cors' })
+            .then(() => {
+              window.location.replace('http://127.0.0.1:5173' + (location.hash || ''));
+            })
+            .catch(() => {
+              attempts += 1;
+              if (attempts < maxAttempts) {
+                setTimeout(checkAndRedirect, 1500);
+              }
+            });
+        }
+
+        checkAndRedirect();
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="root">
+    <!-- Fallback guide displayed if opened via static server before React mounts -->
+    <div
+      style="min-height:100vh;background:#090a0f;color:#e2e8f0;display:flex;align-items:center;justify-content:center;font-family:'Instrument Sans',system-ui,sans-serif;padding:24px;">
+      <div
+        style="max-width:560px;background:#13151f;border:1px solid #232738;border-radius:16px;padding:36px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.7);text-align:center;">
+        <div style="font-size:42px;margin-bottom:16px;">⚡</div>
+        <h2
+          style="font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:700;margin:0 0 12px 0;color:#ffffff;letter-spacing:-0.02em;">
+          StudyAI Platform</h2>
+        <p style="color:#94a3b8;font-size:15px;line-height:1.6;margin:0 0 24px 0;">
+          StudyAI is a full-stack React 19 + Vite + Django application. The VS Code <strong>Live Server</strong>
+          extension is a static HTML server that cannot compile React JSX components directly.
+        </p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;">
+          <a href="http://127.0.0.1:5173/"
+            style="background:#6366f1;color:#ffffff;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;display:inline-block;transition:all 0.2s;">🚀
+            Open Vite App (Port 5173)</a>
+          <a href="./dist/index.html"
+            style="background:#1e2235;border:1px solid #333a55;color:#e2e8f0;text-decoration:none;padding:12px 22px;border-radius:10px;font-weight:600;font-size:14px;display:inline-block;">📦
+            Open Built Bundle (dist/)</a>
+        </div>
+        <div
+          style="background:#090a0f;border:1px solid #1e2235;border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#94a3b8;">
+          <div style="font-weight:600;color:#cbd5e1;margin-bottom:8px;">👉 1-Click Launch Options:</div>
+          <div style="margin-bottom:6px;">1. Double-click: <code
+              style="color:#38bdf8;background:#0c4a6e;padding:3px 8px;border-radius:4px;font-weight:700;">GO_LIVE.bat</code>
+            in the project folder (starts everything + opens browser)</div>
+          <div style="margin-bottom:6px;">2. In VS Code: Press <code
+              style="color:#a5b4fc;background:#1e1b4b;padding:3px 8px;border-radius:4px;font-weight:700;">F5</code> or
+            <code
+              style="color:#a5b4fc;background:#1e1b4b;padding:3px 8px;border-radius:4px;font-weight:700;">Ctrl + Shift + B</code>
+          </div>
+          <div>3. Or in Terminal: <code
+              style="color:#34d399;background:#064e3b;padding:3px 8px;border-radius:4px;">npm start</code></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>

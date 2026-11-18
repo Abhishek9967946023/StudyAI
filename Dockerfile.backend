@@ -1,0 +1,38 @@
+# =============================================================================
+# StudyAI — Hardened Django Backend Dockerfile
+# =============================================================================
+FROM python:3.12-slim
+
+# Avoid writing .pyc files and enable unbuffered output
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH="/app:/app/backend"
+
+WORKDIR /app
+
+# Install system dependencies (build tools, PostgreSQL client libs, Poppler, and Tesseract OCR)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    poppler-utils \
+    tesseract-ocr \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY backend/requirements.txt /app/backend/requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r /app/backend/requirements.txt
+
+# Copy backend application code
+COPY backend /app/backend
+
+# Create directories for persistent media uploads and staticfiles
+RUN mkdir -p /app/backend/media /app/backend/staticfiles
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+    CMD curl -f http://127.0.0.1:8000/api/health/ || exit 1
+
+CMD ["sh", "-c", "python /app/backend/manage.py migrate --noinput && python /app/backend/manage.py collectstatic --noinput && gunicorn studyai_backend.wsgi:application --bind 0.0.0.0:8000 --workers 3 --threads 2 --timeout 300"]

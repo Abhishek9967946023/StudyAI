@@ -1,0 +1,12 @@
+{
+  "name": "studyai-workspace",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node start_all.js",
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "lint": "npm --prefix frontend run lint",
+    "preview": "npm --prefix frontend run preview"
+  }
+}

@@ -1,0 +1,93 @@
+/* ==========================================================================
+   StudyAI — Design Tokens
+   Linear / Notion / Perplexity Commercial SaaS Aesthetics
+   ========================================================================== */
+
+:root {
+  /* Core Color Palette */
+  --bg: #F6F5FB;
+  --surface: #FFFFFF;
+  --border: #E6E3F3;
+  --ink: #17152B;
+  --muted: #5E5A7A;
+  --subtle: #8E8AA8;
+
+  /* Primary Accent: Indigo */
+  --indigo: #4F3FF0;
+  --indigo-tint: #ECEAFF;
+  --indigo-text: #3B2FC9;
+  --indigo-hover: #3E2EE0;
+
+  /* Semantic Coral: Critical / Weak */
+  --coral: #E5484D;
+  --coral-tint: #FDECEC;
+  --coral-text: #8E1F24;
+  --coral-hover: #D13438;
+
+  /* Semantic Teal: Strong / Done */
+  --teal: #0B7F72;
+  --teal-tint: #E3F5F2;
+  --teal-text: #07564D;
+  --teal-hover: #086B60;
+
+  /* Dark Card (for contrast accents in light mode) */
+  --dark-card: #17152B;
+  --dark-card-ink: #FFFFFF;
+  --dark-card-muted: #9E9BB5;
+
+  /* Typography */
+  --font-heading: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Radii */
+  --radius-card: 20px;
+  --radius-btn: 12px;
+  --radius-pill: 999px;
+  --radius-sm: 8px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(23, 21, 43, 0.05);
+  --shadow-md: 0 8px 24px -4px rgba(23, 21, 43, 0.08);
+  --shadow-lg: 0 16px 36px -6px rgba(23, 21, 43, 0.12);
+  --shadow-glow: 0 0 24px rgba(79, 63, 240, 0.15);
+
+  /* Transitions */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.15s var(--ease);
+  --transition-normal: 0.25s var(--ease);
+}
+
+/* Dark Theme Token Set */
+[data-theme="dark"] {
+  --bg: #0D0C15;
+  --surface: #151324;
+  --border: #26233E;
+  --ink: #F2F0FC;
+  --muted: #9E9BB5;
+  --subtle: #6D6A87;
+
+  --indigo: #695BFF;
+  --indigo-tint: #232047;
+  --indigo-text: #A89FFF;
+  --indigo-hover: #7B6FFF;
+
+  --coral: #FF666A;
+  --coral-tint: #3D1C20;
+  --coral-text: #FFA1A4;
+  --coral-hover: #FF7D80;
+
+  --teal: #1DB8A6;
+  --teal-tint: #113632;
+  --teal-text: #73EAD9;
+  --teal-hover: #26C9B6;
+
+  --dark-card: #0A0912;
+  --dark-card-ink: #FFFFFF;
+  --dark-card-muted: #83809C;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 36px -6px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 24px rgba(105, 91, 255, 0.25);
+}

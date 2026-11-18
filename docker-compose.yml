@@ -1,0 +1,80 @@
+# =============================================================================
+# StudyAI — Multi-Container Docker Compose Specification
+# =============================================================================
+# Services:
+# 1. backend  -> Python Django REST API (Port 8000)
+# 2. frontend -> React 19 + Vite UI (Port 5173)
+# 3. db       -> PostgreSQL 16 (Optional production database)
+#
+# Ollama Connection:
+# - Connects to the local Ollama daemon running on your host machine
+#   via host.docker.internal:11434
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # Python Django Backend Service
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: studyai_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_DEBUG=${DJANGO_DEBUG:-True}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-studyai-docker-development-key-min-32-chars-long}
+      - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1,host.docker.internal,backend}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
+      - USE_POSTGRES=${USE_POSTGRES:-False}
+      - DB_NAME=${DB_NAME:-studyai_db}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_HOST=${DB_HOST:-db}
+      - DB_PORT=${DB_PORT:-5432}
+      # Connects to your local Ollama instance on Windows/Mac/Linux
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://host.docker.internal:11434}
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-llama3:latest}
+      - EMAIL_BACKEND=${EMAIL_BACKEND:-django.core.mail.backends.console.EmailBackend}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Persistent storage for media uploads and SQLite database
+      - ./backend/media:/app/backend/media
+      - ./backend/db.sqlite3:/app/backend/db.sqlite3
+    command: >
+      sh -c "python /app/backend/manage.py migrate --noinput &&
+             python /app/backend/manage.py collectstatic --noinput &&
+             gunicorn studyai_backend.wsgi:application --bind 0.0.0.0:8000 --workers 3 --threads 2 --timeout 300"
+
+  # React Production Frontend Service (Nginx)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: studyai_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  # Optional PostgreSQL Database (Set USE_POSTGRES=True in .env to enable)
+  # db:
+  #   image: postgres:16-alpine
+  #   container_name: studyai_postgres
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_DB=${DB_NAME:-studyai_db}
+  #     - POSTGRES_USER=${DB_USER:-postgres}
+  #     - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+
+# volumes:
+#   postgres_data:

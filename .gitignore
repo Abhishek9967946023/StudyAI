@@ -1,0 +1,87 @@
+# =============================================================================
+# StudyAI — Comprehensive Git Ignore Rules
+# =============================================================================
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables & secrets (NEVER COMMIT)
+.env
+.env.*
+!.env.example
+*.env
+*.pem
+*.key
+*.cert
+credentials.json
+client_secret*.json
+secrets.json
+
+# Node dependencies and production build outputs
+node_modules/
+dist/
+dist-ssr/
+frontend/node_modules/
+frontend/dist/
+*.local
+
+# Python and virtual environments
+.venv/
+venv/
+backend/venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Django database & media
+*.sqlite3
+*.sqlite3-journal
+backend/db.sqlite3
+backend/db.sqlite3-journal
+media/
+backend/media/
+uploads/
+backend/uploads/
+staticfiles/
+backend/staticfiles/
+
+# Editor directories and caches
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testing artifacts and logs
+testing/reports/*.json
+testing/reports/*.xml
+.coverage
+htmlcov/
+scratch/
